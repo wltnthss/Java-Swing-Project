@@ -1,5 +1,8 @@
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.TextArea;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -14,16 +17,32 @@ public class Frame {
 		JPanel panel = new JPanel();		
 		JLabel label = new JLabel("Some text");
 		JButton button1 = new JButton("Click me!!");
+		JButton button2 = new JButton("Exit");
 		JTextArea txtArea = new JTextArea();
 		JTextField txtField = new JTextField();
-		
+		JPanel btnPanel = new JPanel();		
 		panel.setLayout(new BorderLayout());
-		
+				
+		btnPanel.add(button1);
+		btnPanel.add(button2);
 		panel.add(label, BorderLayout.NORTH);
-		panel.add(button1, BorderLayout.WEST);
+		panel.add(btnPanel, BorderLayout.WEST);
 		panel.add(txtArea, BorderLayout.CENTER); 
+				
+		button1.addActionListener(new ActionListener() {			
+			@Override
+			public void actionPerformed(ActionEvent e) {	// 클릭 시 작동
+				label.setText(txtArea.getText());
+			}
+		});
+		button2.addActionListener(new ActionListener() {			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});		
 		
-		frame.add(panel);
+		frame.add(panel);		
 		
 		frame.setVisible(true);
 		frame.setPreferredSize(new Dimension(840, 840/12*9));
