@@ -2,12 +2,16 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
@@ -18,8 +22,8 @@ import javax.swing.JButton;
 public class Customer_App {
 
 	private JFrame frame;
-	private JTextField textField;
-	private JPasswordField passwordField;
+	private JTextField textId;
+	private JPasswordField textps;
 
 	/**
 	 * Launch the application.
@@ -51,23 +55,24 @@ public class Customer_App {
 
 		frame = new JFrame();
 		ImagePanel welcomPanel = new ImagePanel(new ImageIcon("C:/ai_SJS/java/workspace/SwingProject/image/business.jpg").getImage());
-		frame.getContentPane().add(welcomPanel, BorderLayout.WEST);		
+		frame.getContentPane().add(welcomPanel, BorderLayout.SOUTH);		
 		
 		JLabel lblNewLabel = new JLabel("Log In");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 30));
-		lblNewLabel.setBounds(219, 106, 216, 45);
+		lblNewLabel.setBounds(197, 94, 216, 45);
 		welcomPanel.add(lblNewLabel);
 		
-		textField = new JTextField();
-		textField.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		textField.setToolTipText("Enter ID");
-		textField.setBounds(219, 161, 216, 29);
-		welcomPanel.add(textField);
-		textField.setColumns(10);
+		textId = new JTextField();
+		textId.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		textId.setToolTipText("Enter ID");
+		textId.setBounds(219, 161, 216, 29);
+		welcomPanel.add(textId);
+		textId.setColumns(10);
 		
-		passwordField = new JPasswordField();
-		passwordField.setBounds(219, 200, 216, 29);
-		welcomPanel.add(passwordField);
+		textps = new JPasswordField();
+		textps.setBounds(219, 200, 216, 29);
+		welcomPanel.add(textps);
 		
 		JLabel lblNewLabel_1 = new JLabel("ID : ");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 25));
@@ -79,10 +84,24 @@ public class Customer_App {
 		lblNewLabel_1_1.setBounds(166, 200, 51, 29);
 		welcomPanel.add(lblNewLabel_1_1);
 		
-		JButton btnNewButton = new JButton("Log In");
-		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 25));
-		btnNewButton.setBounds(166, 239, 268, 37);
-		welcomPanel.add(btnNewButton);
+		JButton btnLogIn = new JButton("");
+		btnLogIn.setIcon(new ImageIcon("C:\\Users\\sonjisu\\Desktop\\btn\\btn.png"));
+		btnLogIn.setPressedIcon(new ImageIcon("C:\\Users\\sonjisu\\Desktop\\btn\\btn_click.png"));
+		btnLogIn.setBounds(272, 239, 86, 29);
+		btnLogIn.addActionListener(new ActionListener() {	
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(textId.getText().equals("son") && (textps.getText().equals("1234"))) {
+					System.out.println("Welcom son");
+					welcomPanel.setVisible(false);
+				} else {
+					JOptionPane.showMessageDialog(null, "Failed Log In");
+				}
+			}
+		});
+		
+		welcomPanel.add(btnLogIn);
 		frame.setSize(welcomPanel.getWidth(), welcomPanel.getHeight());	
 		frame.setResizable(true);
 		frame.setLocationRelativeTo(null);
