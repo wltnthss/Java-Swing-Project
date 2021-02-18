@@ -262,8 +262,7 @@ public class Customer_App {
 		}
 		public int getHeight() {
 			return img.getHeight(null);
-		}
-					
+		}					
 		public void paintComponent(Graphics g) {
 			g.drawImage(img, 0, 0, null);
 		}
