@@ -6,6 +6,7 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -64,7 +65,7 @@ public class Customer_App {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {		
-
+		Customer customer = new Customer();
 		frame = new JFrame();
 		frame.getContentPane().setLayout(new CardLayout(0, 0));
 		ImagePanel welcomPanel = new ImagePanel(new ImageIcon("C:/ai_SJS/java/workspace/SwingProject/image/business.jpg").getImage());
@@ -152,6 +153,8 @@ public class Customer_App {
 		JTextArea note = new JTextArea();
 		note.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		note.setBounds(601, 245, 156, 133);
+		// JTextArea 부분의 선 표시 명령어
+		note.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		mainPanel.add(note);
 		
 		JButton btnNewButton = new JButton("Submit");
@@ -160,10 +163,12 @@ public class Customer_App {
 				String nameTxt = name.getText();
 				String ageTxt = age.getText();
 				String phoneTxt = phone.getText();
-				String bTxt = birthday.getText();
 				String genderTxt = gender.getSelectedItem().toString();
 				String noteTxt = note.getText();
 //				Customer customer = new Customer(nameTxt, ageTxt);
+				
+				customer.createCustomer(nameTxt, phoneTxt, genderTxt, ageTxt, noteTxt);
+				JOptionPane.showMessageDialog(null, "Your data has been saved successfully");
 			}
 		});
 		btnNewButton.setBounds(329, 427, 214, 61);
