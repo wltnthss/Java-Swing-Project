@@ -1,32 +1,37 @@
  
+import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-
-import java.awt.Font;
-import javax.swing.SwingConstants;
-import javax.swing.JTextField;
+import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JButton;
-import java.awt.Color;
-import java.awt.CardLayout;
-import javax.swing.JComboBox;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.RowFilter;
+import javax.swing.SwingConstants;
+import javax.swing.table.TableColumnModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 
 public class Customer_App {
@@ -38,6 +43,7 @@ public class Customer_App {
 	private JTextField age;
 	private JTextField phone;
 	private JTextField birthday;
+	private JTextField search;
 
 	/**
 	 * Launch the application.
@@ -89,13 +95,37 @@ public class Customer_App {
 		frame.setLocationRelativeTo(null);
 		String[][] data = customer.getCustomers(); 
 		String[] headers = new String[] {"Name", "Phone", "Gender", "Age", "Note"};
+		tablePanel.setLayout(null);
 		JTable table = new JTable(data, headers);
 		table.setRowHeight(30);
 		table.setFont(new Font("Sanserif", Font.BOLD, 15));
 		table.setAlignmentX(0);
 		table.setSize(800, 400);
 		table.setPreferredScrollableViewportSize(new Dimension(800, 400));
-		tablePanel.add(new JScrollPane(table));
+		JScrollPane scrollPane = new JScrollPane(table);
+		scrollPane.setBounds(43, 66, 802, 428);
+		tablePanel.add(scrollPane);
+		
+		search = new JTextField();
+		search.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		search.setBounds(43, 10, 802, 35);
+		tablePanel.add(search);
+		search.setColumns(10);
+		search.addKeyListener(new KeyAdapter() {
+			public void keyReleased(KeyEvent e) {
+				// add Table Filter
+				String val = search.getText();
+				TableRowSorter<TableModel> trs = new TableRowSorter<>(table.getModel());
+				table.setRowSorter(trs);
+				trs.setRowFilter(RowFilter.regexFilter(val));
+			}			
+		});
+		
+		TableColumnModel columnModels = table.getColumnModel();
+		columnModels.getColumn(0).setPreferredWidth(100); 	// 첫 번째값 크기 조절
+		columnModels.getColumn(2).setPreferredWidth(40);
+		columnModels.getColumn(3).setPreferredWidth(10);
+		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainPanel.setVisible(false);
 		welcomPanel.setVisible(false);
