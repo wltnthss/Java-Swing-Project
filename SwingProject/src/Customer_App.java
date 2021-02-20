@@ -80,18 +80,16 @@ public class Customer_App {
 		ImagePanel welcomPanel = new ImagePanel(new ImageIcon("C:/ai_SJS/java/workspace/SwingProject/image/business.jpg").getImage());
 		frame.getContentPane().add(welcomPanel, "name_152787985869300");		
 		
-		JPanel mainPanel = new JPanel();
+		ImagePanel mainPanel = new ImagePanel(new ImageIcon("C:/ai_SJS/java/workspace/SwingProject/image/Register.png").getImage());
 		mainPanel.setBackground(Color.WHITE);
 		mainPanel.setBounds(0, 37, 884, 559);
 		frame.getContentPane().add(mainPanel, "name_152787997605300");
 		mainPanel.setLayout(null);
-		mainPanel.setVisible(false);
 		
-		JPanel tablePanel = new JPanel();
+		ImagePanel tablePanel = new ImagePanel(new ImageIcon("C:/ai_SJS/java/workspace/SwingProject/image/List.png").getImage());
 		frame.getContentPane().add(tablePanel, "name_152788009405700");
 		frame.setJMenuBar(menuBar());
 		frame.setSize(welcomPanel.getWidth(), welcomPanel.getHeight());	
-		frame.setResizable(true);
 		frame.setLocationRelativeTo(null);
 		String[][] data = customer.getCustomers(); 
 		String[] headers = new String[] {"Name", "Phone", "Gender", "Age", "Note"};
@@ -103,14 +101,26 @@ public class Customer_App {
 		table.setSize(800, 400);
 		table.setPreferredScrollableViewportSize(new Dimension(800, 400));
 		JScrollPane scrollPane = new JScrollPane(table);
-		scrollPane.setBounds(43, 66, 802, 428);
+		scrollPane.setBounds(195, 91, 650, 408);
 		tablePanel.add(scrollPane);
 		
 		search = new JTextField();
 		search.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		search.setBounds(43, 10, 802, 35);
+		search.setBounds(195, 25, 650, 37);
 		tablePanel.add(search);
 		search.setColumns(10);
+		
+		JButton btnNewButton_2 = new JButton("New button");
+		btnNewButton_2.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				tablePanel.setVisible(false);
+				mainPanel.setVisible(true);
+			}
+		});
+		btnNewButton_2.setIcon(new ImageIcon("C:\\ai_SJS\\java\\workspace\\SwingProject\\image\\RegisterBtn3.png"));
+		btnNewButton_2.setBounds(12, 50, 164, 62);
+		tablePanel.add(btnNewButton_2);
 		search.addKeyListener(new KeyAdapter() {
 			public void keyReleased(KeyEvent e) {
 				// add Table Filter
@@ -127,9 +137,6 @@ public class Customer_App {
 		columnModels.getColumn(3).setPreferredWidth(10);
 		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		mainPanel.setVisible(false);
-		welcomPanel.setVisible(false);
-		tablePanel.setVisible(true);
 		
 		/** 패널 구성 완료 (welcomPanel, mainPanel, tablePanel) **/
 
@@ -137,78 +144,78 @@ public class Customer_App {
 		JLabel lblNewLabel_2 = new JLabel("Welcome This is Main Panel");
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_2.setFont(new Font("Arial Black", Font.PLAIN, 25));
-		lblNewLabel_2.setBounds(199, 10, 492, 64);
+		lblNewLabel_2.setBounds(300, 22, 492, 64);
 		mainPanel.add(lblNewLabel_2);
 		
 		JLabel lblNewLabel_3 = new JLabel("Name");
 		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblNewLabel_3.setBounds(137, 96, 131, 41);
+		lblNewLabel_3.setBounds(216, 96, 131, 41);
 		mainPanel.add(lblNewLabel_3);
 		
 		JLabel lblNewLabel_3_1 = new JLabel("Age");
 		lblNewLabel_3_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_3_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblNewLabel_3_1.setBounds(137, 167, 131, 41);
+		lblNewLabel_3_1.setBounds(216, 167, 131, 41);
 		mainPanel.add(lblNewLabel_3_1);
 		
 		JLabel lblNewLabel_3_2 = new JLabel("Gender");
 		lblNewLabel_3_2.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_3_2.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblNewLabel_3_2.setBounds(137, 237, 131, 41);
+		lblNewLabel_3_2.setBounds(216, 237, 131, 41);
 		mainPanel.add(lblNewLabel_3_2);
 		
 		JLabel lblNewLabel_3_3 = new JLabel("Phone");
 		lblNewLabel_3_3.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_3_3.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblNewLabel_3_3.setBounds(465, 96, 134, 41);
+		lblNewLabel_3_3.setBounds(544, 96, 134, 41);
 		mainPanel.add(lblNewLabel_3_3);
 		
 		JLabel lblNewLabel_3_4 = new JLabel("Birthday");
 		lblNewLabel_3_4.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_3_4.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblNewLabel_3_4.setBounds(465, 167, 134, 41);
+		lblNewLabel_3_4.setBounds(544, 167, 134, 41);
 		mainPanel.add(lblNewLabel_3_4);
 		
 		JLabel lblNewLabel_3_4_1 = new JLabel("Note");
 		lblNewLabel_3_4_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_3_4_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblNewLabel_3_4_1.setBounds(465, 237, 134, 41);
+		lblNewLabel_3_4_1.setBounds(544, 237, 134, 41);
 		mainPanel.add(lblNewLabel_3_4_1);
 		
 		name = new JTextField();
 		name.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		name.setBounds(273, 96, 155, 41);
+		name.setBounds(352, 96, 155, 41);
 		mainPanel.add(name);
 		name.setColumns(10);
 		
 		age = new JTextField();
 		age.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		age.setColumns(10);
-		age.setBounds(273, 167, 155, 41);
+		age.setBounds(352, 167, 155, 41);
 		mainPanel.add(age);
 		
 		phone = new JTextField();
 		phone.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		phone.setColumns(10);
-		phone.setBounds(603, 96, 155, 41);
+		phone.setBounds(682, 96, 155, 41);
 		mainPanel.add(phone);
 		
 		birthday = new JTextField();
 		birthday.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		birthday.setColumns(10);
-		birthday.setBounds(603, 167, 155, 41);
+		birthday.setBounds(682, 167, 155, 41);
 		mainPanel.add(birthday);
 		
 		JComboBox gender = new JComboBox(new String[] {"Male", "Female"});
 		gender.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		gender.setBackground(Color.WHITE);
-		gender.setBounds(273, 237, 155, 41);
+		gender.setBounds(352, 237, 155, 41);
 		mainPanel.add(gender);
 		
 		JTextArea note = new JTextArea();
 		note.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		note.setBounds(601, 245, 156, 133);
+		note.setBounds(680, 245, 156, 133);
 		// JTextArea 부분의 선 표시 명령어
 		note.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		mainPanel.add(note);
@@ -230,8 +237,20 @@ public class Customer_App {
 				tablePanel.setVisible(true);
 			}
 		});
-		btnNewButton.setBounds(329, 427, 214, 61);
+		btnNewButton.setBounds(423, 427, 214, 61);
 		mainPanel.add(btnNewButton);
+		
+		JButton btnNewButton_1 = new JButton("New button");
+		btnNewButton_1.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				mainPanel.setVisible(false);
+				tablePanel.setVisible(true);
+			}
+		});
+		btnNewButton_1.setIcon(new ImageIcon("C:\\ai_SJS\\java\\workspace\\SwingProject\\image\\ListBtn8.png"));
+		btnNewButton_1.setBounds(23, 133, 131, 64);
+		mainPanel.add(btnNewButton_1);
 		
 		JLabel lblNewLabel = new JLabel("Log In");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
