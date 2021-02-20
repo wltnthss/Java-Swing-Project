@@ -1,4 +1,4 @@
-
+ 
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Graphics;
@@ -10,7 +10,6 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -21,6 +20,8 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.CardLayout;
@@ -65,18 +66,43 @@ public class Customer_App {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {		
+		
+		/** 패널 구성 **/
 		Customer customer = new Customer();
 		frame = new JFrame();
 		frame.getContentPane().setLayout(new CardLayout(0, 0));
 		ImagePanel welcomPanel = new ImagePanel(new ImageIcon("C:/ai_SJS/java/workspace/SwingProject/image/business.jpg").getImage());
-		frame.getContentPane().add(welcomPanel, "name_33538705614799");		
+		frame.getContentPane().add(welcomPanel, "name_152787985869300");		
 		
 		JPanel mainPanel = new JPanel();
 		mainPanel.setBackground(Color.WHITE);
 		mainPanel.setBounds(0, 37, 884, 559);
-		frame.getContentPane().add(mainPanel, "name_33538715770600");
+		frame.getContentPane().add(mainPanel, "name_152787997605300");
 		mainPanel.setLayout(null);
 		mainPanel.setVisible(false);
+		
+		JPanel tablePanel = new JPanel();
+		frame.getContentPane().add(tablePanel, "name_152788009405700");
+		frame.setJMenuBar(menuBar());
+		frame.setSize(welcomPanel.getWidth(), welcomPanel.getHeight());	
+		frame.setResizable(true);
+		frame.setLocationRelativeTo(null);
+		String[][] data = customer.getCustomers(); 
+		String[] headers = new String[] {"Name", "Phone", "Gender", "Age", "Note"};
+		JTable table = new JTable(data, headers);
+		table.setRowHeight(30);
+		table.setFont(new Font("Sanserif", Font.BOLD, 15));
+		table.setAlignmentX(0);
+		table.setSize(800, 400);
+		table.setPreferredScrollableViewportSize(new Dimension(800, 400));
+		tablePanel.add(new JScrollPane(table));
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		mainPanel.setVisible(false);
+		welcomPanel.setVisible(false);
+		tablePanel.setVisible(true);
+		
+		/** 패널 구성 완료 (welcomPanel, mainPanel, tablePanel) **/
+
 		
 		JLabel lblNewLabel_2 = new JLabel("Welcome This is Main Panel");
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
@@ -167,8 +193,11 @@ public class Customer_App {
 				String noteTxt = note.getText();
 //				Customer customer = new Customer(nameTxt, ageTxt);
 				
-				customer.createCustomer(nameTxt, phoneTxt, genderTxt, ageTxt, noteTxt);
+				//customer.createCustomer(nameTxt, phoneTxt, genderTxt, ageTxt, noteTxt);
 				JOptionPane.showMessageDialog(null, "Your data has been saved successfully");
+				welcomPanel.setVisible(false);
+				mainPanel.setVisible(false);
+				tablePanel.setVisible(true);
 			}
 		});
 		btnNewButton.setBounds(329, 427, 214, 61);
@@ -213,6 +242,7 @@ public class Customer_App {
 					System.out.println("Welcom son");
 					welcomPanel.setVisible(false);
 					mainPanel.setVisible(true);
+
 				} else {
 					JOptionPane.showMessageDialog(null, "Failed Log In");
 				}
@@ -220,11 +250,8 @@ public class Customer_App {
 		});
 		
 		welcomPanel.add(btnLogIn);
-		frame.setJMenuBar(menuBar());
-		frame.setSize(welcomPanel.getWidth(), welcomPanel.getHeight());	
-		frame.setResizable(true);
-		frame.setLocationRelativeTo(null);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+
 	}
 	public JMenuBar menuBar() {
 		JMenuBar bar = new JMenuBar();

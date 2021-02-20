@@ -5,35 +5,40 @@ import java.util.ArrayList;
 import java.sql.Connection;
 
 public class Customer {
-	public static void main(String[] args) {
-		createTable();	
-		// Test code
-		createCustomer("son", "010-1111-1111", "Male", "27", "This is Note");
-		ArrayList<String> list = getCustomers();
-		// ArrayList를 item에 담아 사용
-		for(String item: list) {	
-			System.out.println(item);
-		}
-		createCustomer("Park", "010-2222-2222", "Female", "28", "VIP Customer");
-		list = getCustomers();
-		for(String item: list) {
-			System.out.println(item);
-		}
-	}
+//	public static void main(String[] args) {
+//		createTable();	
+//		// Test code
+//		createCustomer("son", "010-1111-1111", "Male", "27", "This is Note");
+//		ArrayList<String> list = getCustomers();
+//		// ArrayList를 item에 담아 사용
+//		for(String item: list) {	
+//			System.out.println(item);
+//		}
+//		createCustomer("Park", "010-2222-2222", "Female", "28", "VIP Customer");
+//		list = getCustomers();
+//		for(String item: list) {
+//			System.out.println(item);
+//		}
+//	}
 	
-	public static ArrayList<String> getCustomers(){
+	public static String[][] getCustomers(){
 		try {
 			Connection con = getConnection();
-			PreparedStatement statement = con.prepareStatement("Select name, phone, gender FROM customer");
+			PreparedStatement statement = con.prepareStatement("Select name, phone, gender, age, note FROM customer");
 			ResultSet results = statement.executeQuery();
-			ArrayList<String> list = new ArrayList<String>();
+			ArrayList<String[]> list = new ArrayList<String[]>();
 			while(results.next()) {
-				list.add("Name : " + results.getString("name") +
-						" Phone " + results.getString("phone") +
-						" Gender " + results.getString("gender"));
+				list.add(new String[] {
+							results.getString("name"),
+							results.getString("phone"),
+							results.getString("gender"),
+							results.getString("age"),
+							results.getString("note")
+				});
 			}
 			System.out.println("The data has been fetched!");
-			return list;
+			String[][] arr = new String[list.size()][5];
+			return list.toArray(arr);
 			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -90,7 +95,7 @@ public class Customer {
 			String pass= "245ucuHLst";
 			Class.forName(driver);
 			Connection con = DriverManager.getConnection(url, user, pass);
-			System.out.println("드라이버 연결 성공");
+			System.out.println("Driver successfully connected!");
 			return con;
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
